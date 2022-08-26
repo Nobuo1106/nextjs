@@ -16,26 +16,27 @@ type Props = {
 
 export default function Index({ 
   allPosts,
+  todos
  }: Props) {
   const heroPost = allPosts[0]
   const morePosts = allPosts.slice(1)
 
   // ↓↓↓ client-side-rendering ↓↓↓
-  const [todos, setTodos] = useState([]);
-  useEffect(() =>{
-    const fetchTodos = async() => {
-      setTimeout(
-        async () => {
-        const res = await fetch('/api/todos');
-        const data = await res.json();
-        console.log(data);
-        setTodos(data);  
-        }
-        , 2000);
-    }
+  // const [todos, setTodos] = useState([]);
+  // useEffect(() =>{
+  //   const fetchTodos = async() => {
+  //     setTimeout(
+  //       async () => {
+  //       const res = await fetch('/api/todos');
+  //       const data = await res.json();
+  //       console.log(data);
+  //       setTodos(data);  
+  //       }
+  //       , 2000);
+  //   }
 
-    fetchTodos();
-  }, []);
+  //   fetchTodos();
+  // }, []);
   // ↑↑↑ client-side-rendering ↑↑↑
 
   return (
@@ -85,6 +86,7 @@ export const getServerSideProps = async () => {
     'excerpt',
   ])
 
+  const todos = getSampleData();
   return {
     props: { 
       allPosts,
